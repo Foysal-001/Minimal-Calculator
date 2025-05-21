@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Minimal Vintage Calculator</title>
+  <style>
+    body {
+      background: linear-gradient(145deg, #e0dcd5, #f7f5f0);
+      font-family: 'Courier New', monospace;
+      color: #000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      backdrop-filter: blur(2px);
+    }
+    .calculator {
+      background: #fbf8f3;
+      border: 2px solid #333;
+      padding: 20px;
+      width: 260px;
+      box-shadow: 4px 4px 0 #444;
+    }
+    .display {
+      background-color: #eae7dc;
+      color: #222;
+      font-size: 1.8em;
+      padding: 12px;
+      text-align: right;
+      margin-bottom: 12px;
+      border: 2px solid #333;
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+    .buttons {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+    }
+    button {
+      background-color: #d6d1c4;
+      color: #111;
+      border: 2px solid #333;
+      padding: 12px;
+      font-size: 1.1em;
+      cursor: pointer;
+      font-family: 'Courier New', monospace;
+      box-shadow: inset -2px -2px 0 #fff, inset 2px 2px 0 #aaa;
+    }
+    button:hover {
+      background-color: #cfcabf;
+    }
+    button:active {
+      box-shadow: inset 2px 2px 0 #fff, inset -2px -2px 0 #aaa;
+      background-color: #bcb7aa;
+    }
+    button:focus {
+      outline: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="calculator">
+    <div class="display" id="display">0</div>
+    <div class="buttons">
+      <button onclick="press('7')">7</button>
+      <button onclick="press('8')">8</button>
+      <button onclick="press('9')">9</button>
+      <button onclick="press('/')">/</button>
+
+      <button onclick="press('4')">4</button>
+      <button onclick="press('5')">5</button>
+      <button onclick="press('6')">6</button>
+      <button onclick="press('*')">*</button>
+
+      <button onclick="press('1')">1</button>
+      <button onclick="press('2')">2</button>
+      <button onclick="press('3')">3</button>
+      <button onclick="press('-')">-</button>
+
+      <button onclick="press('0')">0</button>
+      <button onclick="press('.')">.</button>
+      <button onclick="calculate()">=</button>
+      <button onclick="press('+')">+</button>
+
+      <button onclick="clearDisplay()" style="grid-column: span 4">C</button>
+    </div>
+  </div>
+
+  <script>
+    let display = document.getElementById('display');
+
+    function press(key) {
+      if (display.innerText === '0' || display.innerText === 'Error') {
+        display.innerText = key;
+      } else {
+        display.innerText += key;
+      }
+      display.scrollLeft = display.scrollWidth;
+    }
+
+    function calculate() {
+      try {
+        display.innerText = eval(display.innerText);
+      } catch {
+        display.innerText = 'Error';
+      }
+    }
+
+    function clearDisplay() {
+      display.innerText = '0';
+    }
+  </script>
+</body>
+</html>
